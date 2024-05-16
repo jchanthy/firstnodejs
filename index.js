@@ -1,11 +1,17 @@
 import fs from 'fs';
 
-fs.readFile('async.txt', (err, data) => {
-    try {
-        if (err) throw err;
-        console.log(data.toString())
-    } catch (error) {
-        console.log('Error');
-    }
-});
-console.log('done!');
+const getFile = fileName => {
+    return new Promise((resolve, reject) => {
+        fs.readFile(fileName, (err, data) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(data.toString());
+            }
+        });
+    });
+}
+
+getFile('async.txt')
+.then(data => console.log(data))
+.catch(err=>console.log(err));
