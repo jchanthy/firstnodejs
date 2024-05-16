@@ -1,10 +1,10 @@
 import fs from 'fs';
 
-fs.readFile('async.txt', function (err, data) {
+fs.readFile('async.txt', (err, data) => {
     try {
         if (err) throw err;
-        console.log(data.toString());
-    } catch (err) {
+        console.log(data.toString())
+    } catch (error) {
         console.log('Error');
     }
 });
