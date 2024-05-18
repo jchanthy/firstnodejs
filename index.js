@@ -1,11 +1,7 @@
-import { getFips } from 'crypto';
-import fs from 'fs';
-import { get } from 'http';
+import { writeLogLine, appendLogLine, readLog } from './logger';
 
-async function getfile(fileName) {
-    const data = fs.promises.readFile(fileName);
-    return (await data).toString();
-}
-
-const dataGet = await getfile('async.txt');
-console.log(dataGet);
+// console.log(writeLogLine, appendLogLine, readLog);
+writeLogLine('log.txt', 'this is my a log message');
+console.log(await readLog('log.txt'));
+appendLogLine("log.txt", "this is another log message");
+console.log(await readLog("log.txt"));
