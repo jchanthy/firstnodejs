@@ -8,6 +8,5 @@ const getFile = (fileName) => {
     });
 }
 
-getFile('async.txt')
-    .then(data => console.log(data.toString()))
-    .catch(err => console.log(err));
+// console.log(getFile('async.txt'));
+const data = await getFile('async.txt');
