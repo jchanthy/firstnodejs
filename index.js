@@ -1,22 +1,13 @@
 import fs from 'fs';
-import { Transform } from 'stream';
+import * as stringify from 'csv-stringify';
 
-const stream = fs.createReadStream('input.txt');
+const write = fs.createWriteStream('log.txt');
+const data = [[1, 2, 3], [4, 5, 6], [7, 8, 9]];
+const columns = ['num1', 'num2', 'num3'];
 
-stream.on('data', function (data) {
-    const chunk = data.toString();
-    console.log(chunk);
+const stringifier = stringify.stringify({ header: true, columns: columns });
+// use forEach()
+data.forEach(el => {
+    stringifier.write(el);
 });
-
-stream.on('end', function () {
-    console.log('End of file');
-});
-
-const write_stream = fs.createWriteStream('output.txt');
-
-const trans = new Transform({
-    transform(chunk, _, callback) {
-        callback(null, chunk.toString().toUpperCase());
-    }
-});
-stream.pipe(trans).pipe(write_stream);
+stringifier.pipe(write);
