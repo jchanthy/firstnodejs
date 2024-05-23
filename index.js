@@ -1,16 +1,12 @@
-import fs from 'fs';
-import * as csv from 'csv-parse';
 
-let sum = 0;
-fs.createReadStream('transactions.csv')
-    .pipe(csv.parse({ delimiter: ',' }))
-    .on('data', function (row) {
-        sum += parseFloat(row[1]);
+import { EventEmitter } from 'events';
+const myEventEmitter = new EventEmitter;
 
-    })
-    .on('end', function () {
-        console.log(sum);
-    })
-    .on('error', function (error) {
-        console.log(error.message);
-    });
+function notifyConnection(ip, source) {
+    console.log(ip + ' connected' + ' from ' + source);
+}
+
+myEventEmitter.on('con', notifyConnection);
+
+myEventEmitter.emit('con', '127.0.0.1', 'localhost');
+
