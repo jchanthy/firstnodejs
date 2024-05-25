@@ -5,8 +5,12 @@ import { EventEmitter } from 'events';
 const emitter = new EventEmitter();
 
 const publisher = new Publisher(emitter);
-const subscriber = new Subscriber(emitter);
+const subscriber = new Subscriber(emitter, 'hello');
+const sub2 = new Subscriber(emitter, 'hi');
 
 subscriber.subscribeToEvent();
-publisher.publishMessage('Hello World from John');
+sub2.subscribeToEvent();
+
+publisher.publishMessage('hello', 'Hello World')
+publisher.publishMessage('hi', 'Hi World')
 
