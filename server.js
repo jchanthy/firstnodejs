@@ -1,13 +1,12 @@
 import http from 'http';
-// http.createServer((req, res) => {
-//     console.log(req, res);
-//     res.write("hello world");
-//     res.end();
-// }).listen(3000);
+import url from 'url';
 
-
-http.createServer((_, res) => {
-   res.writeHead(200, {'Content-Type': 'text/html'});
-   res.write('Hello World!');
-   res.end();
+http.createServer((req, res) => {
+    const q = url.parse(req.url, true);
+    console.log(q.query);
+    // const url = url.parse(req.url, true);
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+    res.write('hello');
+    res.end();
 }).listen(3000);
+console.log('Server running at http://localhost:3000/');
