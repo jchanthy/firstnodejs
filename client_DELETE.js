@@ -6,7 +6,7 @@ session.on('error', (err) => {
     console.error(err);
 })
 
-const req = session.request({':path': '/', ':method':'POST'});
+const req = session.request({':path': '/', ':method':'DELETE'});
 req.write(JSON.stringify({title: "Frim", author:'fdsa'}), 'utf8');
 req.end();
 
