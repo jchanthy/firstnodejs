@@ -6,10 +6,10 @@ session.on('error', (err) => {
     console.log(err);
 })
 
-const req = session.request({':path': '/path'});
+const req = session.request({':path': '/'});
 req.end();
 
-req.on('response', (header) => {
+req.on('stream', (header) => {
     console.log(header);
 });
 
