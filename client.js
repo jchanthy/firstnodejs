@@ -1,9 +1,21 @@
-import net from 'net';
+import http2 from 'http2';
 
-const client = net.connect({ port: 8081 }, () => {
-    client.write('Hello from client !\r\n');
+const session = http2.connect('http://localhost:3000');
+
+session.on('error', (err) => {
+    console.log(err);
+})
+
+const req = session.request({':path': '/path'});
+req.end();
+
+req.on('response', (header) => {
+    console.log(header);
 });
 
-client.on('data', (data) => {
-    console.log('data received: ' + data);
+req.setEncoding('utf8');
+
+req.on('data', (chunk) => {
+    console.log(chunk);
 });
+
