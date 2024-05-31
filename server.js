@@ -1,5 +1,5 @@
 import https from 'https';
-import * as fs from "node:fs";
+import fs  from "fs";
 
 const options = {
     key: fs.readFileSync('./keys/private.pem'),
@@ -8,21 +8,22 @@ const options = {
 https.createServer(options, (req, res) => {
    if(req.method === 'GET') {
     res.write('Get request received');
-   } else {
+   } else if (req.method === 'POST'){
        let body = '';
-       res.on('data', (data) => {
+       req.on('data', (data) => {
            body += data;
-           console.log(data);
        });
-       res.on('end', () => {
-
+       req.on('end', () => {
            body = JSON.parse(body);
-           console.log(body);
+           res.write('hello post');
+        //    body.find(()=>{});
        });
        req.on('error', (err) => {
            console.error(err);
        })
+   } else {
+    res.write('Other response');
    }
-    res.end();
+    res.end('end response');
 }).listen(3000);
 console.log('Server running at http://localhost:3000/');

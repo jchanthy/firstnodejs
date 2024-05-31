@@ -1,7 +1,7 @@
 import http2 from "http2";
 
 // port server
-const port = 3000;
+const port = 3001;
 // create an empty array to store books records
 let books = [];
 const server = http2.createServer();
@@ -15,12 +15,11 @@ const postBook = (stream, headers) => {
 
   stream.on("end", () => {
     let responseMessage = "";
-
+    
     // when parse stream to json, it will be an object
     body = JSON.parse(body);
 
     // check if the book is already exist
-      // 
       result
     
     books.find(
@@ -77,6 +76,7 @@ const router = (stream, headers) => {
   let handler;
 
   if (path === "/" && method === "POST") {
+    console.log('post');
     handler = postBook;
   }else if (path === "/" && method === "PUT"){
       handler = updateBook;
